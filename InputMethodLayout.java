@@ -56,12 +56,12 @@ public class InputMethodLayout implements OnGlobalLayoutListener {
                     observer.removeOnGlobalLayoutListener(this);
                 }
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
     }
 
-    int previousKeyboardHeight = -1;
+    private int previousKeyboardHeight = -1;
 
     @Override
     public void onGlobalLayout() {

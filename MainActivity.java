@@ -3,21 +3,24 @@ package com.cxl.demo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ScrollView;
 
-public class MainActivity extends AppCompatActivity implements InputMethodLayout.onKeyboardsChangeListener{
+public class MainActivity extends AppCompatActivity implements InputMethodLayout.onKeyboardsChangeListener {
 
-    private ScrollView scrollView;
+    private View scrollView;
 
     private View loginButton;
 
     private int duration = 0;
+    private InputMethodLayout methodLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        scrollView = (ScrollView) findViewById(R.id.scrollview);
+        scrollView = findViewById(R.id.scrollview);
         loginButton = findViewById(R.id.login_button);
+        methodLayout = new InputMethodLayout(this);
+        methodLayout.setOnkeyboarddStateListener(this);
     }
 
     @Override
@@ -36,6 +39,15 @@ public class MainActivity extends AppCompatActivity implements InputMethodLayout
             } else if (state == InputMethodLayout.KEYBOARD_STATE_HIDE) {
                 scrollView.scrollTo(0, 0);
             }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (methodLayout != null) {
+            methodLayout.OnDestory();
+            methodLayout = null;
         }
     }
 }
